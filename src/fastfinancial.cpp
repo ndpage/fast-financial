@@ -1,22 +1,12 @@
-#include "fastfinancial.hpp"
+#include "FastFinancial/FastFinancial.h"
 
-int main(int argc, char* argv[]) {
-    std::cout << " ==== Fast Financial ==== " << std::endl;
-    try {
-        if (argc != 3) {
-            std::cerr << print_usage() << std::endl;
-            return 1;
-       }
-        std::string host = argv[1];
-        std::string  port = argv[2]; 
-        boost::asio::io_context io_context;
-        std::cout << " > Launching processor on host "<< host << " and port " << port << "." << std::endl;    
-        MarketDataProcessor processor(io_context, argv[1], argv[2]);
-        io_context.run();
-   } catch (std::exception& e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-   }
+namespace fastfinancial{
 
-   return 0;
+    void MarketDataProcessor::handle_connect(const boost::system::error_code& error) {
+        if (!error) {
+            boost::asio::async_read(socket_, boost::asio::buffer(data_, max_length),
+            boost::bind(&MarketDataProcessor::handle_read, this, boost::asio::placeholders::error));
+        }
+    }
 }
 

@@ -1,13 +1,13 @@
 include env.settings
 
 # Variables
-TARGET := fastfinancial.app
+TARGET := server
 SRCS := $(wildcard $(SRC_DIR)/*.cpp)
 OBJS := $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
 INCLUDES = -I$(INCLUDE_DIR) -I$(BOOST_INC) 
 
 # Rules
-all: $(BUILD_DIR) $(TARGET)
+all: $(BUILD_DIR) $(OBJS) $(TARGET)
 
 # Create build directory if it doesn't exist
 $(BUILD_DIR):

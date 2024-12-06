@@ -7,7 +7,7 @@ flags = [
     '-I', '/usr/include', 
     '-I', '/usr/local/include', 
     '-I', '/usr/local/include/boost',  # Add your Boost include path here
-    '-I', '.',  # If you have project-specific includes
+    '-I', './include',  # If you have project-specific includes
     # Other include paths or flags as needed
 ]
 

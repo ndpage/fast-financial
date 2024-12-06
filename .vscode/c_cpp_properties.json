@@ -3,7 +3,10 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/include/FastFinancial",
+                "/usr/local/include"
             ],
             "defines": [],
             "macFrameworkPath": [
@@ -12,8 +15,7 @@
             "compilerPath": "/usr/local/opt/ccache/libexec/clang",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "macos-clang-x64",
-            "configurationProvider": "ms-vscode.makefile-tools"
+            "intelliSenseMode": "macos-clang-x64"
         }
     ],
     "version": 4
