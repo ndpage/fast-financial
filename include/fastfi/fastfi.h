@@ -1,16 +1,22 @@
-#ifndef FASTFINANCIAL_H
-#define FASTFINANCIAL_H
+#ifndef fastfi_H
+#define fastfi_H
 #include <iostream>
 #include <boost/asio.hpp>
 #include <boost/bind/bind.hpp>
 
-namespace fastfinancial {
-class MarketDataProcessor {
-public:
-    MarketDataProcessor(boost::asio::io_context& io_context, const std::string& host, const std::string& port)
-        : socket_(io_context), resolver_(io_context) {
-        boost::asio::ip::tcp::resolver::results_type endpoints = resolver_.resolve(host, port);
-        boost::asio::async_connect(socket_, endpoints,
+namespace fastfi {
+    class IDataProcessor {
+    public:
+        virtual void handle_connect(const boost::system::error_code& error) = 0;
+        virtual void handle_read(const boost::system::error_code& error) = 0;
+    };
+
+    class MarketDataProcessor : public IDataProcessor {
+        public:
+        MarketDataProcessor(boost::asio::io_context& io_context, const std::string& host, const std::string& port)
+            : socket_(io_context), resolver_(io_context) {
+            boost::asio::ip::tcp::resolver::results_type endpoints = resolver_.resolve(host, port);
+            boost::asio::async_connect(socket_, endpoints,
             boost::bind(&MarketDataProcessor::handle_connect, this, boost::asio::placeholders::error));
     }
 

@@ -1,12 +1,13 @@
 #include <iostream>
-#include "FastFinancial.h"
+#include "fastfi/fastfi.h"
 
-std::string  print_usage(){
-    return "Usage: ./fastfinancial <host> <port>\n\tplease provide <host> and <port>";
+
+std::string  print_usage(std::string prog_name = "fastfi") {
+    return "Usage: " + prog_name + " <host> <port>\n";
 }
 
 int main(int argc, char* argv[]) {
-    std::cout << " ==== Fast Financial ==== " << std::endl;
+    std::cout << "==== Fast Financial ==== \n" << std::endl;
     try {
         if (argc != 3) {
             std::cerr << print_usage() << std::endl;
@@ -14,9 +15,11 @@ int main(int argc, char* argv[]) {
        }
         std::string host = argv[1];
         std::string  port = argv[2]; 
-        boost::asio::io_context io_context;
+        // boost::asio::io_context io_context;
+        boost::asio::io_context io_context{1};
+
         std::cout << " > Launching processor on host "<< host << " and port " << port << "." << std::endl;    
-        fastfinancial::MarketDataProcessor processor(io_context, argv[1], argv[2]);
+        fastfi::MarketDataProcessor processor(io_context, host, port);
         io_context.run();
    } catch (std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;

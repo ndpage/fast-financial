@@ -76,6 +76,15 @@
     "numeric": "cpp",
     "random": "cpp",
     "type_traits": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "charconv": "cpp",
+    "complex": "cpp",
+    "deque": "cpp",
+    "execution": "cpp",
+    "forward_list": "cpp",
+    "print": "cpp",
+    "queue": "cpp",
+    "shared_mutex": "cpp",
+    "stack": "cpp"
   }
 }

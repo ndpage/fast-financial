@@ -1,6 +1,6 @@
-#include "FastFinancial/FastFinancial.h"
+#include "fastfi/fastfi.h"
 
-namespace fastfinancial{
+namespace fastfi {
 
     void MarketDataProcessor::handle_connect(const boost::system::error_code& error) {
         if (!error) {
