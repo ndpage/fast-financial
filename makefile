@@ -1,37 +1,13 @@
 include env.settings
 
-# Variables
-TARGET := server
-SRCS := $(wildcard $(SRC_DIR)/*.cpp)
-OBJS := $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
-INCLUDES = -I$(INCLUDE_DIR) -I$(BOOST_INC) 
+CMAKE ?= cmake
+CMAKE_ARGS ?=
 
-# Rules
-all: $(BUILD_DIR) $(OBJS) $(TARGET)
+all:
+	$(CMAKE) -S . -B $(BUILD_DIR) $(CMAKE_ARGS)
+	$(CMAKE) --build $(BUILD_DIR)
 
-# Create build directory if it doesn't exist
-$(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
-
-# Link objects to create the final executable
-$(TARGET): $(OBJS)
-	$(CXX) -std=c++20 $(CFLAGS) -o $(BUILD_DIR)/$@ $^ $(LDFLAGS)
-
-# Compile source files into object files
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CXX) -std=c++20 $(CXXFLAGS) $(INCLUDES) -c $< -o $@
-
-# Clean build artifacts
 clean:
-	rm -rf $(BUILD_DIR) $(TARGET)
+	$(CMAKE) -E remove_directory $(BUILD_DIR)
 
 .PHONY: all clean
-
-#fastfinancial:
-#	$(CXX) -std=c++20 -o fastfinancial fastfinancial.o -lboost_system -lpthread
-
-#fastfinancial.o:	fastfinancial.cpp fastfinancial.hpp
-#	g++ -std=c++20 -c fastfinancial.cpp -o fastfinancial.o
-#
-#clean:
-#	rm *.o
